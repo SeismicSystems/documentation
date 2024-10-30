@@ -4,7 +4,7 @@
 
 Welcome to the documentation for our confidential storage extension to the Ethereum Virtual Machine (EVM). This extension introduces confidential storage capabilities, allowing developers to handle sensitive data securely within smart contracts. By building upon the existing EVM infrastructure, we've added minimal changes to ensure ease of adoption and maintain compatibility.
 
-This documentation highlights the differences ("diff") from Cancun's Ethereum version to focus on the new features introduced. We recommend familiarizing yourself with the standard Ethereum documentation alongside this guide.
+This documentation highlights the differences from Cancun's Ethereum version to focus on the new features introduced. We recommend familiarizing yourself with the standard Ethereum documentation alongside this guide.
 
 - - -
 
@@ -161,12 +161,10 @@ contract ShieldedStorage {
 
 *   Shielded types **cannot** be emitted in events, as this would expose confidential data.
     
-    `event ConfidentialEvent(suint256 confidentialData); // Not allowed`
-    
 *   **Future Improvements**: We plan to support encrypted events, enabling the emission of shielded types without compromising confidentiality.
 
-
-
+    `event ConfidentialEvent(suint256 confidentialData); // Not allowed`
+    
 ## 4\. Casting and Type Conversion
 
 ### 4.1 Explicit Casting Required
