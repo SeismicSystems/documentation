@@ -26,9 +26,6 @@ This documentation highlights the differences and new features introduced, focus
 5. [Backup Mechanism](#5-backup-mechanism)
 6. [Testing](#6-testing)
 7. [Future Considerations](#7-future-considerations)
-8. [Best Practices](#8-best-practices)
-9. [Conclusion](#9-conclusion)
-10. [Feedback](#10-feedback)
 
 ---
 
