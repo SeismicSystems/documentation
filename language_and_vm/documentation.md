@@ -220,10 +220,11 @@ We introduce two new EVM instructions to handle confidential storage:
 `suint256[] private confidentialDynamicArray;`
 
 *   As such, when interfacing with shielded arrays, we've conserved Solidity rules and just transposed them by using shielded types:
-   
-   * The index should be a Shielded Integer.
-   * The declared length should be a Shielded Integer.
-   * Pushed values should be consistant with the shielded array underlying type.
+
+    *    The index should be a Shielded Integer.
+    *    The declared length should be a Shielded Integer.
+    *    The returned length is a Shielded Integer.
+    *    Pushed values should be consistant with the shielded array underlying type.
 
 ### 6.2 Limitations
 
