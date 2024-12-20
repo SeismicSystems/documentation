@@ -38,13 +38,14 @@ This documentation highlights the differences from Cancun's Ethereum version to 
 
 ### 1\. New Shielded Types
 
-We introduce three new types called **shielded types**:
+We introduce four new types called **shielded types**:
 
 *   **`suint`**: Shielded unsigned integer.
 *   **`sint`**: Shielded signed integer.
 *   **`saddress`**: Shielded address.
+*   **`sbool`**: Shielded bool.
 
-These types function similarly to their unshielded counterparts (`uint`, `int`, `address`) but are designed to handle confidential data securely within the smart contract's storage.
+These types function similarly to their unshielded counterparts (`uint`, `int`, `address` and `bool`) but are designed to handle confidential data securely within the smart contract's storage.
 
 #### Usage Example
 
@@ -169,7 +170,7 @@ contract ShieldedStorage {
 
 ### 4.1 Explicit Casting Required
 
-*   Shielded types and their unshielded counterparts do **not** support implicit casting, except when using `suint` for array indexing.
+*   Shielded types and their unshielded counterparts do **not** support implicit casting.
     
 ```
 uint256 publicNumber = 100;
@@ -214,18 +215,20 @@ We introduce two new EVM instructions to handle confidential storage:
 
 ### 6.1 Shielded Arrays
 
-*   Arrays of shielded types are supported, and their metadata (e.g., length of a dynamic array) is also stored in confidential storage.
+*   Arrays of shielded types are supported, and their metadata (e.g., length of a dynamic array) are also stored in confidential storage. 
     
 `suint256[] private confidentialDynamicArray;`
 
+*   As such, when interfacing with shielded arrays, we've conserved Solidity rules and just transposed them by using shielded types:
+   
+   * The index should be a Shielded Integer.
+   * The declared length should be a Shielded Integer.
+   * Pushed values should be consistant with the shielded array underlying type.
+
 ### 6.2 Limitations
 
-*   Currently, shielded arrays only work with the shielded types (`suint`, `sint`, `saddress`).
+*   Currently, shielded arrays only work with the shielded types (`suint`, `sint`, `saddress` and `sbool`).
 *   Shielded `bytes` or `string` arrays are **not yet supported**.
-
-### 6.3 Shielded Indexing
-
-*   Shielded unsigned integers (`suint`) can be used for array indexing without explicit casting.
  
 
 
