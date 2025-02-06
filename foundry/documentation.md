@@ -7,11 +7,11 @@ The Seismic Foundry Developer Tools extend the existing Foundry suite by providi
 ## Table of Contents
 1. [Overview](#1-overview)
 2. [Changes](#2-changes)
-   - [2.1](#21-sforge-changes)
-   - [2.2](#22-sanvil-changes)
+   - [2.1 sforge](#21-sforge-changes)
+   - [2.2 sanvil](#22-sanvil-changes)
 3. [Technical Details](#3-technical-details)
-   - [3.1](#31-private-storage-implementation-in-sanvil)
-   - [3.2](#32-development-vs-production)
+   - [3.1 Private Storage Implementation in sanvil](#31-private-storage-implementation-in-sanvil)
+   - [3.2 Development vs Production](#32-development-vs-production)
 
 ---
 
