@@ -4,7 +4,7 @@
 
 Welcome to the documentation for our confidential storage extension to the Ethereum Virtual Machine (EVM). This extension introduces confidential storage capabilities, allowing developers to handle sensitive data securely within smart contracts. By building upon the existing EVM infrastructure, we've added minimal changes to ensure ease of adoption and maintain compatibility.
 
-This documentation highlights the differences from Cancun's Ethereum version to focus on the new features introduced. We recommend familiarizing yourself with the standard Ethereum documentation alongside this guide.
+This documentation highlights the differences from Cancun's Ethereum version to focus on the new features introduced by Seismic's Mercury version. We recommend familiarizing yourself with the standard Ethereum documentation alongside this guide.
 
 - - -
 
@@ -29,7 +29,7 @@ This documentation highlights the differences from Cancun's Ethereum version to 
 6.  [Arrays and Collections](#6-arrays-and-collections)
     *   [6.1 Shielded Arrays](#61-shielded-arrays)
     *   [6.2 Limitations](#62-limitations)
-    *   [6.3 Indexing Exception](#63-indexing-exception)
+    *   [6.3 Mappings](#63-mappings)
 7.  [Best Practices](#7-best-practices)
 8.  [Conclusion](#8-conclusion)
 9.  [Feedback](#9-feedback)
@@ -161,10 +161,13 @@ contract ShieldedStorage {
 ### 3.7 Events
 
 *   Shielded types **cannot** be emitted in events, as this would expose confidential data.
-    
+
+*   **Currently**: Although native event encryption isn'y supported, developers may use the encrypt and decrypt precompiles at addresses 102/103 (see [example](https://github.com/SeismicSystems/early-builds/blob/main/encrypted_logs/src/end-to-end-mvp/EncryptedLogs.sol)) to secure event data.
+
 *   **Future Improvements**: We plan to support encrypted events, enabling the emission of shielded types without compromising confidentiality.
 
     `event ConfidentialEvent(suint256 confidentialData); // Not allowed`
+    
     
 ## 4\. Casting and Type Conversion
 
@@ -231,14 +234,17 @@ We introduce two new EVM instructions to handle confidential storage:
 *   Currently, shielded arrays only work with the shielded types (`suint`, `sint`, `saddress` and `sbool`).
 *   Shielded `bytes` or `string` arrays are **not yet supported**.
 *   It is very likely that some of our intermediary representation is not strictly correct, which would lead into less optimized code as IR is fundamental to optimization passes.
- 
 
+### 6.3 Mappings
+
+*	 Mappings using shielded types for keys and/or values are supported. In such cases, the storage operations will employ the confidential instructions (CLOAD/CSTORE) accordingly.
+ 
 
 ## 7\. Best Practices
 
 *   **Avoid Public Exposure**: Never expose shielded variables through public getters or events.
 *   **Careful with Gas Usage**: Be mindful of operations where gas cost can vary based on shielded values (e.g., loops, exponentiation).
-*   **Encrypt Calldata**: Ensure that any calldata used for initializing shielded `immutable` variables is encrypted.
+*   **Encrypt Calldata**: Not only must shielded immutable variables be initialized with encrypted calldata, but all functions accepting shielded types should use encrypted calldata.
 *   **Manual Slot Packing**: If slot packing is necessary, use inline assembly carefully to avoid introducing vulnerabilities.
 *   **Review Compiler Warnings**: Pay attention to compiler warnings related to shielded types to prevent accidental leaks.
 
